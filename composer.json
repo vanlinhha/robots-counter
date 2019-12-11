@@ -18,5 +18,12 @@
     "psr-4": {
       "LinhHa\\RobotsCounter\\": "src"
     }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "LinhHa\\RobotsCounter\\RobotsCounterServiceProvider"
+      ]
+    }
   }
 }
