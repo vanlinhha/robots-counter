@@ -23,7 +23,7 @@ class RobotsCounterMiddleware
         if ($agent->isRobot()  && !$request->ajax()) {
             if (!in_array($request->method(), config('robots_counter.accepted_methods')))
                 return $response;
-            Log::channel(config('robots_counter.log_channel_name'))
+            Log::channel('robot_counter_log')
                 ->emergency($agent->robot()
                     . ' '
                     . (int)((microtime(true) - LARAVEL_START_EXECUTION_TIME) * 1000)

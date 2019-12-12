@@ -32,13 +32,15 @@ class RobotsCounterServiceProvider extends ServiceProvider
             'days' => 30,
         ];
 
-        if (! Config::get('logging.channels.robot_counter_log')) {
+        if (!Config::get('logging.channels.robot_counter_log')) {
             Config::set('logging.channels.robot_counter_log', $log_channel_config);
         }
-        $this->app->booted(function () {
-            $schedule = $this->app->make(Schedule::class);
-            $schedule->command('robot:report --date=today')->daily();
-        });
+        if ($this->app->runningInConsole()) {
+            $this->app->booted(function () {
+                $schedule = $this->app->make(Schedule::class);
+                $schedule->command('robot:report --date=today')->daily();
+            });
+        }
     }
 
     /**

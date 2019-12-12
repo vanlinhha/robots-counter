@@ -140,39 +140,39 @@ class RobotsCounterReportCommand extends Command
         $now = new Carbon();
         switch ($date) {
             case "today":// chi count cho hom nay
-                $end   = $now->setTime(23, 59, 59)->format('Y-m-d');
-                $start = $now->setTime(0, 0, 0)->format('Y-m-d');
+                $end   = $now->format('Y-m-d');
+                $start = $now->format('Y-m-d');
                 break;
             case "yesterday":// count cho hom qua
                 $now   = new Carbon();
-                $end   = $now->setTime(23, 59, 59)->format('Y-m-d');
-                $start = $now->sub(new \DateInterval('P1D'))->setTime(0, 0, 0)->format('Y-m-d');
+                $end   = $now->format('Y-m-d');
+                $start = $now->sub(new \DateInterval('P1D'))->format('Y-m-d');
                 break;
             case "week":// count cho tuan nay
                 $now   = new Carbon();
-                $end   = $now->setTime(23, 59, 59)->format('Y-m-d');
-                $start = $now->sub(new \DateInterval('P1W'))->setTime(0, 0, 0)->format('Y-m-d');
+                $end   = $now->format('Y-m-d');
+                $start = $now->sub(new \DateInterval('P1W'))->format('Y-m-d');
                 break;
             case "month":// count cho thang nay
                 $now   = new Carbon();
-                $end   = $now->setTime(23, 59, 59)->format('Y-m-d');
-                $start = $now->sub(new \DateInterval('P1M'))->setTime(0, 0, 0)->format('Y-m-d');
+                $end   = $now->format('Y-m-d');
+                $start = $now->sub(new \DateInterval('P1M'))->format('Y-m-d');
                 break;
             case "range":// count lai tat ca
                 $start = new Carbon($this->option('start'));
-                $start = $start->setTime(00, 00, 00)->format('Y-m-d');
+                $start = $start->format('Y-m-d');
                 $end   = new Carbon($this->option('end'));
-                $end   = $end->setTime(23, 59, 59)->format('Y-m-d');
+                $end   = $end->format('Y-m-d');
                 break;
             case "daily":// count cho hom nay va hom qua
                 $now   = new Carbon();
-                $end   = $now->setTime(23, 59, 59)->format('Y-m-d');
-                $start = $now->sub(new \DateInterval('P1D'))->setTime(0, 0, 0)->format('Y-m-d');
+                $end   = $now->format('Y-m-d');
+                $start = $now->sub(new \DateInterval('P1D'))->format('Y-m-d');
                 break;
             default:
                 $now   = new Carbon($date);
-                $end   = $now->setTime(23, 59, 59)->format('Y-m-d');
-                $start = $now->setTime(0, 0, 0)->format('Y-m-d');
+                $end   = $now->format('Y-m-d');
+                $start = $now->format('Y-m-d');
                 break;
         }
         return [$start, $end];
