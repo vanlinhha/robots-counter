@@ -1,6 +1,6 @@
 <?php
 
-namespace LinhHa\RobotsCounter\App\Controllers;
+namespace LinhHa\RobotsCounter\Controllers;
 
 use App\Models\RobotsCounterReport;
 use Illuminate\Http\Request;

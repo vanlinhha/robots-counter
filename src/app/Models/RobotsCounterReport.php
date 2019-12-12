@@ -1,6 +1,6 @@
 <?php
 
-namespace LinhHa\RobotsCounter\App\Models;
+namespace LinhHa\RobotsCounter\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

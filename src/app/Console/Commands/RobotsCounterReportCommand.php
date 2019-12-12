@@ -1,8 +1,8 @@
 <?php
 
-namespace LinhHa\RobotsCounter\App\Console\Commands;
+namespace LinhHa\RobotsCounter\Console\Commands;
 
-use LinhHa\RobotsCounter\app\Models\RobotsCounterReport;
+use LinhHa\RobotsCounter\Models\RobotsCounterReport;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use DateTime;
@@ -15,9 +15,9 @@ class RobotsCounterReportCommand extends Command
      * @var string
      */
     protected $signature = 'robot:report
-    {--date=daily : range time needs to report}
-    {--start= : range time needs to report}
-    {--end= : range time needs to report}';
+    {--date=daily : range time needs to report [today, yesterday, week, month, range]}
+    {--start= : range time needs to report [YYYY-MM-DD]}
+    {--end= : range time needs to report [YYYY-MM-DD]}';
 
     /**
      * The console command description.

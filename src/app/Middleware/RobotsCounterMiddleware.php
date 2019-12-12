@@ -1,6 +1,6 @@
 <?php
 
-namespace LinhHa\RobotsCounter\app\Middleware;
+namespace LinhHa\RobotsCounter\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -20,15 +20,16 @@ class RobotsCounterMiddleware
     {
         $response = $next($request);
         $agent = new Agent();
-        if ($agent->isRobot() && $request->isMethod('GET') && !$request->ajax()) {
-            Log::channel('robot_counter_log')
+        if ($agent->isRobot()  && !$request->ajax()) {
+            if (!in_array($request->method(), config('robots_counter.accepted_methods')))
+                return $response;
+            Log::channel(config('robots_counter.log_channel_name'))
                 ->emergency($agent->robot()
                     . ' '
                     . (int)((microtime(true) - LARAVEL_START_EXECUTION_TIME) * 1000)
                     . ' '
                     . $request->getRequestUri());
         }
-
         return $response;
     }
 }

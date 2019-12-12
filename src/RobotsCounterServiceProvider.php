@@ -2,9 +2,11 @@
 
 namespace LinhHa\RobotsCounter;
 
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
-use LinhHa\RobotsCounter\app\Console\Commands\RobotsCounterReportCommand;
-use LinhHa\RobotsCounter\app\Middleware\RobotsCounterMiddleware;
+use LinhHa\RobotsCounter\Console\Commands\RobotsCounterReportCommand;
+use LinhHa\RobotsCounter\Middleware\RobotsCounterMiddleware;
 
 class RobotsCounterServiceProvider extends ServiceProvider
 {
@@ -23,9 +25,20 @@ class RobotsCounterServiceProvider extends ServiceProvider
         ]);
         $router->aliasMiddleware('robots.counter', RobotsCounterMiddleware::class);
 
-        if (! \Config::get('logging.channels.robot_counter_log')) {
-            \Config::set('logging.channels.robot_counter_log', \Config::get('robots_counter.log_channel_config'));
+        $log_channel_config = [
+            'driver' => 'daily',
+            'level' => 'emergency',
+            'path' => storage_path('logs/robots.log'),
+            'days' => 30,
+        ];
+
+        if (! Config::get('logging.channels.robot_counter_log')) {
+            Config::set('logging.channels.robot_counter_log', $log_channel_config);
         }
+        $this->app->booted(function () {
+            $schedule = $this->app->make(Schedule::class);
+            $schedule->command('robot:report --date=today')->daily();
+        });
     }
 
     /**
